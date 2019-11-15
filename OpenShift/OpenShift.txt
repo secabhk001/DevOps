@@ -1,1 +1,18 @@
 
+OpenShift Topics:
+1. Intro
+2. Architectural Overview
+3. Setup - Minishift
+4. Management - Web,CLI,API
+5. Projects and users
+6. Builds and Image Streams
+7. Build triggers
+8. Deployments
+9. Networking
+10. Services and Routes
+11. Scaling
+12. Storage
+13. Catalog and Templates 
+
+
+
