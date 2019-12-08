@@ -1,0 +1,144 @@
+Your Interactive Learning Environment Bash Terminal
+
+
+start.sh
+$
+$ start.sh
+Starting Kubernetes...minikube version: v1.3.0
+commit: 43969594266d77b555a207b0f3e9b3fa1dc92b1f
+* minikube v1.3.0 on Ubuntu 18.04
+* Running on localhost (CPUs=2, Memory=2461MB, Disk=47990MB) ...
+* OS release is Ubuntu 18.04.2 LTS
+* Preparing Kubernetes v1.15.0 on Docker 18.09.5 ...
+  - kubelet.resolv-conf=/run/systemd/resolve/resolv.conf
+* Pulling images ...
+* Launching Kubernetes ...
+* Done! kubectl is now configured to use "minikube"
+* dashboard was successfully enabled
+Kubernetes Started
+$
+$ netstat -tupln | grep 3000
+tcp6       0      0 :::30000                :::*                    LISTEN      11569/kube-proxy
+$
+$ kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+deployment.apps/hello-node created
+$
+$ kubectl get deployments
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+hello-node   1/1     1            1           36s
+$
+$ kubectl get pods
+NAME                          READY   STATUS    RESTARTS   AGE
+hello-node-55b49fb9f8-pcbvq   1/1     Running   0          60s
+$ kubectl get events
+LAST SEEN   TYPE     REASON                    OBJECT                             MESSAGE
+70s         Normal   Scheduled                 pod/hello-node-55b49fb9f8-pcbvq    Successfully assigned default/hello-node-55b49fb9f8-pcbvq to minikube
+68s         Normal   Pulling                   pod/hello-node-55b49fb9f8-pcbvq    Pulling image "gcr.io/hello-minikube-zero-install/hello-node"
+68s         Normal   Pulled                    pod/hello-node-55b49fb9f8-pcbvq    Successfully pulled image "gcr.io/hello-minikube-zero-install/hello-node"
+68s         Normal   Created                   pod/hello-node-55b49fb9f8-pcbvq    Created container hello-node
+68s         Normal   Started                   pod/hello-node-55b49fb9f8-pcbvq    Started container hello-node
+70s         Normal   SuccessfulCreate          replicaset/hello-node-55b49fb9f8   Created pod: hello-node-55b49fb9f8-pcbvq
+70s         Normal   ScalingReplicaSet         deployment/hello-node              Scaled up replica set hello-node-55b49fb9f8 to 1
+5m17s       Normal   Starting                  node/minikube                      Starting kubelet.
+5m17s       Normal   NodeHasSufficientMemory   node/minikube                      Node minikube status is now: NodeHasSufficientMemory
+5m17s       Normal   NodeHasNoDiskPressure     node/minikube                      Node minikube status is now: NodeHasNoDiskPressure
+5m17s       Normal   NodeHasSufficientPID      node/minikube                      Node minikube status is now: NodeHasSufficientPID
+5m17s       Normal   NodeAllocatableEnforced   node/minikube                      Updated Node Allocatable limit across pods
+4m59s       Normal   RegisteredNode            node/minikube                      Node minikube event: Registered Node minikube in Controller
+4m58s       Normal   Starting                  node/minikube                      Starting kube-proxy.
+$
+$ kubectl config view
+apiVersion: v1
+clusters:
+- cluster:    certificate-authority: /root/.minikube/ca.crt
+    server: https://172.17.0.11:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /root/.minikube/client.crt
+    client-key: /root/.minikube/client.key
+$
+
+$ kubectl expose deployment hello-node --type=LoadBalancer --port=8080
+service/hello-node exposed
+$
+
+
+$ kubectl get services
+NAME         TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+hello-node   LoadBalancer   10.98.251.64   <pending>     8080:32132/TCP   28s
+kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP          10m
+$
+
+
+$ minikube service hello-node
+|-----------|------------|--------------------------|
+| NAMESPACE |    NAME    |           URL            |
+|-----------|------------|--------------------------|
+| default   | hello-node | http://172.17.0.11:32132 |
+|-----------|------------|--------------------------|
+* Opening kubernetes service  default/hello-node in default browser...
+Minikube Dashboard is not supported via the interactive terminal experience.
+
+Please click the 'Preview Port 30000' link above to access the dashboard.
+This will now exit. Please continue with the rest of the tutorial.
+* browser failed to open url: exit status 1
+$
+
+
+$ minikube addons enable logviewer
+* logviewer was successfully enabled
+$ kubectl get pod,svc -n kube-system
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/coredns-5c98db65d4-g7pck                1/1     Running   0          29m
+pod/coredns-5c98db65d4-p8mpd                1/1     Running   0          29m
+pod/etcd-minikube                           1/1     Running   0          28m
+pod/kube-addon-manager-minikube             1/1     Running   0          28m
+pod/kube-apiserver-minikube                 1/1     Running   0          28m
+pod/kube-controller-manager-minikube        1/1     Running   0          28m
+pod/kube-proxy-wd4bs                        1/1     Running   0          29m
+pod/kube-scheduler-minikube                 1/1     Running   0          28m
+pod/kubernetes-dashboard-7b8ddcb5d6-kwl2j   1/1     Running   0          29m
+pod/storage-provisioner                     1/1     Running   0          29m
+
+NAME                                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                  AGE
+service/kube-dns                        ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP   29m
+service/kubernetes-dashboard            ClusterIP   10.111.23.48     <none>        80/TCP                   29m
+service/kubernetes-dashboard-katacoda   NodePort    10.109.168.241   <none>        80:30000/TCP             29m
+$ minikube addons disable logviewer
+* "logviewer" was successfully disabled
+$
+$
+$ kubectl get services
+NAME         TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+hello-node   LoadBalancer   10.98.251.64   <pending>     8080:32132/TCP   20m
+kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP          30m
+$ kubectl get deployments
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+hello-node   2/2     2            2           27m
+$ kubectl delete service hello-node
+service "hello-node" deleted
+$ kubectl delete deployment hello-node
+deployment.extensions "hello-node" deleted
+$ 
+
+
+$ minikube stop
+* Stopping "minikube" in none ...
+* "minikube" stopped.
+$ minikube delete
+* Uninstalling Kubernetes v1.15.0 using kubeadm ...
+* Deleting "minikube" in none ...
+* The "minikube" cluster has been deleted.
+$ 
+
+
