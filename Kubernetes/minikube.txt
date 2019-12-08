@@ -1,0 +1,169 @@
+Credits: Katakode 
+
+Module 1 - Create a Kubernetes cluster
+Kubernetes Bootcamp Terminal
+
+Step1: Get minikube version and start minikube AIO cluster. 
+$
+$ minikube version
+minikube version: v1.3.0
+commit: 43969594266d77b555a207b0f3e9b3fa1dc92b1f
+
+$ minikube start
+* minikube v1.3.0 on Ubuntu 18.04
+* Running on localhost (CPUs=2, Memory=2461MB, Disk=47990MB) ...
+* OS release is Ubuntu 18.04.2 LTS
+* Preparing Kubernetes v1.15.0 on Docker 18.09.5 ...
+  - kubelet.resolv-conf=/run/systemd/resolve/resolv.conf
+* Pulling images ...
+* Launching Kubernetes ...
+* Waiting for: apiserver proxy etcd scheduler controller dns
+* Done! kubectl is now configured to use "minikube"
+$
+
+Step2:  Get kubectl version.
+$ kubectl version
+Client Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.2", GitCommit:"f6278300bebbb750328ac16ee6dd3aa7d3549568", GitTreeState:"clean", BuildDate:"2019-08-05T09:23:26Z", GoVersion:"go1.12.5", Compiler:"gc", Platform:"linux/amd64"}
+Server Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.0", GitCommit:"e8462b5b5dc2584fdcd18e6bcfe9f1e4d970a529", GitTreeState:"clean", BuildDate:"2019-06-19T16:32:14Z", GoVersion:"go1.12.5", Compiler:"gc", Platform:"linux/amd64"}
+$
+
+Note: 
+The client version is the kubectl version; the server version is the Kubernetes version installed on the master.
+
+
+
+Step3: Cluster details 
+$ kubectl cluster-info
+Kubernetes master is running at https://172.17.0.25:8443
+KubeDNS is running at https://172.17.0.25:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+$
+
+$ kubectl get nodes
+NAME       STATUS   ROLES    AGE   VERSION
+minikube   Ready    master   12m   v1.15.0
+$
+
+
+
+Commands Recap : 
+=======================
+$ minikube version
+minikube version: v1.3.0
+commit: 43969594266d77b555a207b0f3e9b3fa1dc92b1f
+$ minikube status
+host: Running
+kubelet: Running
+apiserver: Running
+kubectl: Correctly Configured: pointing to minikube-vm at 172.17.0.25
+$ kubectl version
+Client Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.2", GitCommit:"f6278300bebbb750328ac16ee6dd3aa7d3549568", GitTreeState:"clean", BuildDate:"2019-08-05T09:23:26Z", GoVersion:"go1.12.5", Compiler:"gc", Platform:"linux/amd64"}
+Server Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.0", GitCommit:"e8462b5b5dc2584fdcd18e6bcfe9f1e4d970a529", GitTreeState:"clean", BuildDate:"2019-06-19T16:32:14Z", GoVersion:"go1.12.5", Compiler:"gc", Platform:"linux/amd64"}
+$ kubectl cluster-info
+Kubernetes master is running at https://172.17.0.25:8443
+KubeDNS is running at https://172.17.0.25:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+$ kubectl get nodes
+NAME       STATUS   ROLES    AGE   VERSION
+minikube   Ready    master   13m   v1.15.0
+$
+$ minikube stop
+* Stopping "minikube" in none ...
+* "minikube" stopped.
+$
+$ minikube start
+* minikube v1.3.0 on Ubuntu 18.04
+* Tip: Use 'minikube start -p <name>' to create a new cluster, or 'minikube delete' to delete this one.
+* Starting existing none VM for "minikube" ...
+* Waiting for the host to be provisioned ...
+* Preparing Kubernetes v1.15.0 on Docker 18.09.5 ...
+  - kubelet.resolv-conf=/run/systemd/resolve/resolv.conf
+* Relaunching Kubernetes using kubeadm ...
+* Waiting for: apiserver proxy etcd scheduler controller dns
+* Done! kubectl is now configured to use "minikube"
+$
+$ minikube ssh-key
+/root/.minikube/machines/minikube/id_rsa
+$ minikube ip
+172.17.0.25
+$
+
+
+$ minikube logs | more
+$ minikube update-check
+CurrentVersion: v1.3.0
+LatestVersion: v1.5.2
+$
+$ minikube dashboard
+* Enabling dashboard ...
+* Verifying dashboard health ...
+* Launching proxy ...
+* Verifying proxy health ...
+* Opening %s in your default browser...
+Minikube Dashboard is not supported via the interactive terminal experience.
+
+Please click the 'Preview Port 30000' link above to access the dashboard.
+This will now exit. Please continue with the rest of the tutorial.
+X failed to open browser: exit status 1
+$
+
+=======================
+
+
+minikube commands: 
+Minikube is a CLI tool that provisions and manages single-node Kubernetes clu
+sters optimized for development workflows.
+
+Basic Commands:
+  start          Starts a local kubernetes cluster
+  status         Gets the status of a local kubernetes cluster
+  stop           Stops a running local kubernetes cluster
+  delete         Deletes a local kubernetes cluster
+  dashboard      Access the kubernetes dashboard running within the minikube
+cluster
+
+Images Commands:
+  docker-env     Sets up docker env variables; similar to '$(docker-machine e
+nv)'
+  cache          Add or delete an image from the local cache.
+
+Configuration and Management Commands:
+  addons         Modify minikube's kubernetes addons
+  config         Modify minikube config
+  profile        Profile gets or sets the current minikube profile
+  update-context Verify the IP address of the running cluster in kubeconfig.
+
+Networking and Connectivity Commands:
+  service        Gets the kubernetes URL(s) for the specified service in your
+ local cluster
+  tunnel         tunnel makes services of type LoadBalancer accessible on loc
+alhost
+
+Advanced Commands:
+  mount          Mounts the specified directory into minikube
+  ssh            Log into or run a command on a machine with SSH; similar to
+'docker-machine ssh'
+  kubectl        Run kubectl
+
+Troubleshooting Commands:
+  ssh-key        Retrieve the ssh identity key path of the specified cluster
+  ip             Retrieves the IP address of the running cluster
+  logs           Gets the logs of the running instance, used for debugging mi
+nikube, not user code
+  update-check   Print current and latest version number
+  version        Print the version of minikube
+
+Other Commands:
+  completion     Outputs minikube shell completion for the given shell (bash
+or zsh)
+
+Use "minikube <command> --help" for more information about a given command.
+$
+============================== 
+
+
+
+
+MODULE2: 
