@@ -1,1 +1,8 @@
 
+https://www.edureka.co/blog/cheatsheets/jenkins-cheat-sheet/
+
+https://jfrog.com/cheat-sheet/jenkins-made-easy/
+
+https://lzone.de/cheat-sheet/Jenkins
+
+https://lzone.de/cheat-sheet/Jenkins%20Pipeline%20DSL
