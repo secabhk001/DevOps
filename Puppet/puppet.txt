@@ -1,1 +1,16 @@
 
+https://www.linode.com/docs/guides/getting-started-with-puppet-6-1-basic-installation-and-setup/
+
+https://puppet.com/docs/puppet/5.5/install_pre.html
+
+https://puppet.com/docs/puppet/7.5/install_agents.html
+
+https://www.itzgeek.com/how-tos/linux/centos-how-tos/how-to-install-puppet-4-x-on-centos-7-rhel-7.html
+
+https://puppet.com/docs/puppet/5.5/cheatsheet_core_types.html
+
+https://puppet.com/docs/puppet/5.5/cheatsheet_module.html
+
+https://lzone.de/cheat-sheet/Puppet
+
+https://readthedocs.org/projects/cheat-sheets/downloads/pdf/latest/
