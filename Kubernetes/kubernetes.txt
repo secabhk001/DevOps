@@ -1,1 +1,8 @@
 
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+https://www.mirantis.com/blog/kubernetes-cheat-sheet/
+
+https://acloudguru.com/blog/engineering/kubernetes-cheat-sheet
+
+https://phoenixnap.com/kb/kubectl-commands-cheat-sheet
