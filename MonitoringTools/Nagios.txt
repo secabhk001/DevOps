@@ -1,1 +1,10 @@
 
+https://www.tecmint.com/install-nagios-in-linux/
+
+https://www.scaleway.com/en/docs/deploy-nagios-on-scaleway/
+
+https://www.nagios.org/documentation/
+
+https://www.howtoforge.com/tutorial/how-to-install-nagios-on-ubuntu-2004/
+
+https://linuxtechlab.com/installing-configuring-nagios-server/
