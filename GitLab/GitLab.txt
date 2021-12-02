@@ -1,1 +1,7 @@
 
+https://towardsdatascience.com/getting-started-with-gitlab-the-absolute-beginners-guide-ea9e5cadac8b
+
+https://www.tutorialspoint.com/gitlab/index.htm
+
+https://about.gitlab.com/services/education/devops-fundamentals/
+
